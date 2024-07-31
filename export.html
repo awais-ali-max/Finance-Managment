@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Summary</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="d-flex" id="wrapper">
+        <div class="bg-dark text-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading"><img src="Screenshot_3.png" alt="Logo" class="logo">Budget It</div>
+            <div class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action">Welcome</a>
+                <a href="income.html" class="list-group-item list-group-item-action">Income Tracking</a>
+                <a href="expenses.html" class="list-group-item list-group-item-action">Expense Tracking</a>
+                <a href="budget.html" class="list-group-item list-group-item-action">Budget Planning</a>
+                <a href="summary.html" class="list-group-item list-group-item-action">Financial Summary</a>
+                <a href="export.html" class="list-group-item list-group-item-action">Export Data</a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h1 class="mt-4">Export Data</h1>
+                <p>
+                    Export your income and expense data as CSV files for further analysis or record-keeping.
+                </p>
+
+                <!-- Export Options -->
+                <h3>Export Options</h3>
+                <form id="export-form">
+                    <button type="button" class="btn btn-secondary" id="exportIncome">Export Income Data as CSV</button>
+                    <button type="button" class="btn btn-secondary" id="exportExpense">Export Expense Data as CSV</button>
+                    <button type="button" class="btn btn-secondary" id="exportSummary">Export Full Financial Summary as CSV</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Dummy data for exporting
+            const incomeData = [
+                ["Date", "Source", "Amount"],
+                ["2024-07-01", "Salary", "5000"],
+                ["2024-07-05", "Freelancing", "1500"],
+                ["2024-07-10", "Investments", "200"],
+            ];
+
+            const expenseData = [
+                ["Date", "Category", "Amount"],
+                ["2024-07-02", "Groceries", "400"],
+                ["2024-07-06", "Utilities", "150"],
+                ["2024-07-09", "Rent", "1200"],
+            ];
+
+            const fullSummaryData = [
+                ["Date", "Type", "Description", "Amount"],
+                ["2024-07-01", "Income", "Salary", "5000"],
+                ["2024-07-02", "Expense", "Groceries", "400"],
+                ["2024-07-05", "Income", "Freelancing", "1500"],
+                ["2024-07-06", "Expense", "Utilities", "150"],
+                ["2024-07-09", "Expense", "Rent", "1200"],
+                ["2024-07-10", "Income", "Investments", "200"],
+            ];
+
+            // Function to convert data to CSV format
+            function convertArrayToCSV(data) {
+                return data.map(row => row.join(",")).join("\n");
+            }
+
+            // Function to trigger download of CSV file
+            function downloadCSV(csv, filename) {
+                const csvBlob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const csvURL = URL.createObjectURL(csvBlob);
+                const downloadLink = document.createElement("a");
+                downloadLink.href = csvURL;
+                downloadLink.setAttribute("download", filename);
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            }
+
+            // Export Income Data
+            $('#exportIncome').click(function () {
+                const csv = convertArrayToCSV(incomeData);
+                downloadCSV(csv, 'Income_Data.csv');
+            });
+
+            // Export Expense Data
+            $('#exportExpense').click(function () {
+                const csv = convertArrayToCSV(expenseData);
+                downloadCSV(csv, 'Expense_Data.csv');
+            });
+
+            // Export Full Financial Summary
+            $('#exportSummary').click(function () {
+                const csv = convertArrayToCSV(fullSummaryData);
+                downloadCSV(csv, 'Financial_Summary.csv');
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Planning</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="d-flex" id="wrapper">
+        <div class="bg-dark text-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading"><img src="Screenshot_3.png" alt="Logo" class="logo">Budget It</div>
+            <div class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action">Welcome</a>
+                <a href="income.html" class="list-group-item list-group-item-action">Income Tracking</a>
+                <a href="expenses.html" class="list-group-item list-group-item-action">Expense Tracking</a>
+                <a href="budget.html" class="list-group-item list-group-item-action">Budget Planning</a>
+                <a href="summary.html" class="list-group-item list-group-item-action">Financial Summary</a>
+                <a href="export.html" class="list-group-item list-group-item-action">Export Data</a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+            </nav>
+
+            <div class="container-fluid">
+                <h1 class="mt-4">Budget Planning and Goal Setting</h1>
+                <p>
+                    Plan your budget and set financial goals to stay on track with your financial health.
+                </p>
+
+                <!-- Budget Planning Section -->
+                <h3>Budget Planning</h3>
+                <form id="budget-form">
+                    <div class="mb-3">
+                        <label for="monthlyBudget" class="form-label">Set Monthly Budget</label>
+                        <input type="number" class="form-control" id="monthlyBudget" placeholder="Enter your budget" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Set Budget</button>
+                </form>
+
+                <h3 class="mt-4">Track Budget Utilization</h3>
+                <p id="budget-utilization">
+                    <!-- JavaScript will populate this section -->
+                </p>
+
+                <h3 class="mt-4">Adjust Budget</h3>
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#adjustBudgetModal">Adjust Budget</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Budget Adjustment Modal -->
+    <div class="modal fade" id="adjustBudgetModal" tabindex="-1" aria-labelledby="adjustBudgetModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="adjustBudgetModalLabel">Adjust Budget</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adjustBudgetForm">
+                        <div class="mb-3">
+                            <label for="newBudgetInput" class="form-label">New Budget Amount</label>
+                            <input type="number" class="form-control" id="newBudgetInput" placeholder="Enter new budget amount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="budgetNotes" class="form-label">Notes (optional)</label>
+                            <textarea class="form-control" id="budgetNotes" rows="3" placeholder="Enter any notes about the budget adjustment"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveBudgetButton">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initial Budget
+            let currentBudget = 0;
+
+            // Set Monthly Budget
+            $('#budget-form').on('submit', function (e) {
+                e.preventDefault();
+
+                const budget = $('#monthlyBudget').val();
+                currentBudget = parseFloat(budget);
+                $('#budget-utilization').text(`Your set monthly budget is $${currentBudget.toFixed(2)}`);
+                $('#budget-form')[0].reset();
+            });
+
+            // Save Budget Button in Modal
+            $('#saveBudgetButton').click(function () {
+                const newBudget = $('#newBudgetInput').val();
+                if (newBudget) {
+                    currentBudget = parseFloat(newBudget);
+                    $('#budget-utilization').text(`Your adjusted monthly budget is $${currentBudget.toFixed(2)}`);
+                    $('#newBudgetInput').val('');
+                    $('#budgetNotes').val('');
+                    $('#adjustBudgetModal').modal('hide'); // Hide modal after saving
+                    alert('Budget adjusted successfully!');
+                } else {
+                    alert('Please enter a valid new budget amount.');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

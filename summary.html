@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Summary</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="d-flex" id="wrapper">
+        <div class="bg-dark text-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading"><img src="Screenshot_3.png" alt="Logo" class="logo">Budget It</div>
+            <div class="list-group list-group-flush">
+                <a href="index.html" class="list-group-item list-group-item-action">Welcome</a>
+                <a href="income.html" class="list-group-item list-group-item-action">Income Tracking</a>
+                <a href="expenses.html" class="list-group-item list-group-item-action">Expense Tracking</a>
+                <a href="budget.html" class="list-group-item list-group-item-action">Budget Planning</a>
+                <a href="summary.html" class="list-group-item list-group-item-action">Financial Summary</a>
+                <a href="export.html" class="list-group-item list-group-item-action">Export Data</a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h1 class="mt-4">Financial Summary</h1>
+                <p>View a summary of your financial activities and visualize your income and expenses.</p>
+
+                <div id="financial-summary">
+                    <h3>Monthly Balance</h3>
+                    <p>Calculate your monthly balance to see your financial health.</p>
+                    <!-- Monthly Balance Chart -->
+                    <canvas id="monthly-balance-chart" class="canvas-container"></canvas>
+
+                    <h3 class="mt-4">Income vs. Expenses</h3>
+                    <p>Compare your income against your expenses.</p>
+                    <!-- Income vs Expenses Chart -->
+                    <canvas id="income-vs-expenses-chart" class="canvas-container"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
